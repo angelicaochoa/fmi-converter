@@ -44,6 +44,7 @@ import org.apache.commons.logging.*;
  * @author Prithi Chakrapani, ochoaa
  */
 public class MutationData {
+    
     private static final Log LOG = LogFactory.getLog(MutationData.class);
 
     private String gene;
@@ -94,7 +95,7 @@ public class MutationData {
     public MutationData(String sampleId, ShortVariantType shortVariant) {
         this.tumorSampleBarcode = sampleId;
         this.gene = shortVariant.getGene();
-        this.entrezGeneId ="0";
+        this.entrezGeneId = "0";
         this.chromosome = shortVariant.getPosition().split(":")[0].replace("chr","");
         this.strand = "+";
         this.aaChange = shortVariant.getProteinEffect();

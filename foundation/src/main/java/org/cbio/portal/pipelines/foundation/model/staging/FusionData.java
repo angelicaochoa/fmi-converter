@@ -58,7 +58,7 @@ public class FusionData {
     
     public FusionData(String sampleId, RearrangementType rearrangement) {
         this.tumorSampleBarcode = sampleId;
-        this.gene = rearrangement.getTargetedGene().split("-")[0];
+        this.gene = rearrangement.getTargetedGene();
         this.entrezGeneId = "0";
         
         // resolve the fusion event

@@ -77,6 +77,7 @@ public class CnaDataWriter implements ItemStreamWriter<String> {
     private String getHeader(Set<String> fmiCaseList) {
         List<String> header = new ArrayList();
         header.add("Hugo_Symbol");
+        header.add("Entrez_Gene_Id");
         header.addAll(fmiCaseList);
         
         return StringUtils.join(header, "\t");

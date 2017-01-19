@@ -75,7 +75,6 @@ public class ClinicalDataProcessor implements ItemProcessor<CaseType, String> {
                 record.add(value);
             }
         }
-        
         return StringUtils.join(record, "\t");
     }
 

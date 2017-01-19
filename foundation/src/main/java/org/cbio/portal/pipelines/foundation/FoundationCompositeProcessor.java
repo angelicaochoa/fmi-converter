@@ -33,10 +33,12 @@
 package org.cbio.portal.pipelines.foundation;
 
 import org.cbio.portal.pipelines.foundation.model.CaseType;
+import org.cbio.portal.pipelines.foundation.util.GeneDataUtils;
 
 import java.util.List;
 import org.apache.commons.logging.*;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -51,6 +53,9 @@ public class FoundationCompositeProcessor implements ItemProcessor<CaseType, Com
     @Value("#{stepExecutionContext['nonHumanContentColumns']}")
     private List<String> columns;
     
+    @Autowired
+    private GeneDataUtils geneDataUtils;
+    
     private final ClinicalDataProcessor clinicalDataProcessor = new ClinicalDataProcessor();
     private final MutationDataProcessor mutationDataProcessor = new MutationDataProcessor();
     private final FusionDataProcessor fusionDataProcessor = new FusionDataProcessor();
@@ -59,8 +64,10 @@ public class FoundationCompositeProcessor implements ItemProcessor<CaseType, Com
     
     @Override
     public CompositeResultBean process(CaseType ct) throws Exception {
-        // set properties for clinical data processor        
+        // set properties for clinical, mutation, and fusion data processors
         clinicalDataProcessor.setProperties(addData, columns);
+        mutationDataProcessor.setProperties(geneDataUtils);
+        fusionDataProcessor.setProperties(geneDataUtils);
         
         final CompositeResultBean compositeResultBean = new CompositeResultBean();
         try {
